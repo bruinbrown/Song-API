@@ -9,6 +9,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using SongAPI.DAL;
 
 namespace SongAPI
 {
@@ -20,6 +21,11 @@ namespace SongAPI
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+
+            SongContext db = new SongContext();
+            db.Database.Initialize(false);
+            db.SaveChanges();
+            db.Dispose();
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
